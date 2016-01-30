@@ -17,6 +17,7 @@ public class Bar : MonoBehaviour
 
 	SevenWavesGenerator controlScript;
 
+
 	void Awake() {
 
 		controlScript = transform.Find("/LevelControl").gameObject.GetComponent<SevenWavesGenerator>();
@@ -30,6 +31,11 @@ public class Bar : MonoBehaviour
 	void Start () 
 	{
 	
+	}
+
+	public void ResetBar() {
+
+		PointerPos = 0f;
 	}
 	
 

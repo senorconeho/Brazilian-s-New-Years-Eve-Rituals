@@ -28,11 +28,21 @@ public class SevenWavesGenerator : MonoBehaviour {
 
 	public Transform barPrefab;
 
+	Transform trBar;	
+	Bar barScript;
+
 	// Use this for initialization
 	void Start () {
 	
 		currentLevelTimer = 0;
 		GenerateWavesValues();
+
+		// Instantiate the bar
+		trBar = Instantiate(barPrefab) as Transform;
+		barScript = trBar.gameObject.GetComponent<Bar>();
+		// Disables the bar
+		trBar.gameObject.SetActive(false);
+
 		InstantiateWave();
 	}
 
@@ -87,8 +97,15 @@ public class SevenWavesGenerator : MonoBehaviour {
 		Time.timeScale = slowMotionSpeed;
 
 		// Instantiate the bar
-		Transform trBar = Instantiate(barPrefab) as Transform;
-		Bar barScript = trBar.gameObject.GetComponent<Bar>();
+		//trBar = Instantiate(barPrefab) as Transform;
+		//barScript = trBar.gameObject.GetComponent<Bar>();
+		// Activate the bar
+		trBar.gameObject.SetActive(true);
+		// Configure the bar settings
+		barScript.ResetBar();
+		barScript.PointerSpeed = 9f; // FIXME
+
+
 		// Set the max jump time in the bar script
 		barScript.DurationTime = jumpTime;
 		// Set the speed factor for when the game slows down
@@ -130,6 +147,13 @@ public class SevenWavesGenerator : MonoBehaviour {
 
 			GameWon();
 		}
+		else {
+			// Deactivate the bar
+			trBar.gameObject.SetActive(false);
+
+			// generate the next wave
+			InstantiateWave();
+		}
 	}
 
 	/// <summary>
@@ -138,6 +162,8 @@ public class SevenWavesGenerator : MonoBehaviour {
 
 		Time.timeScale = 1.0f;
 		isJumpTimeOn = false;
+		// stop current wave
+		// 
 	}
 
 	/// <summary>
