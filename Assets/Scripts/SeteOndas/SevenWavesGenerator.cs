@@ -122,7 +122,7 @@ public class SevenWavesGenerator : MonoBehaviour {
 
 	/// <summary>
 	/// </summary>
-	void PlayerJumpedWave() {
+	public void PlayerJumpedWave() {
 
 		DeactivateJumpTime();
 		currentWave++;
